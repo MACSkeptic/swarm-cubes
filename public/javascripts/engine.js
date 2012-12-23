@@ -22,9 +22,16 @@ SC.clearScreen = function (context) {
 };
 
 SC.draw = function (context, elapsed) {
-  SC.clearScreen(context);
+  var secretCanvas = $('<canvas>');
+  var secretContext = secretCanvas[0].getContext('2d');
 
-  SC.game.draw(context, elapsed);
+  secretCanvas.attr('width', SC.canvas().attr('width'));
+  secretCanvas.attr('height', SC.canvas().attr('height'));
+  secretCanvas.attr('id', 'foreground-canvas');
+
+  SC.game.draw(secretContext, elapsed);
+
+  SC.canvas().replaceWith(secretCanvas);
 };
 
 SC.handleInput = function () {
