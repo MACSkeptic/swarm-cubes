@@ -2,8 +2,8 @@ var SC = SC || {};
 SC.cube = SC.cube || {};
 
 SC.cube.original = {
-  defaultSpeed: 100,
-  defaultShotSpeed: 200,
+  defaultSpeed: 300,
+  defaultShotSpeed: 1000,
   shots: [],
   width: 50,
   height: 50
