@@ -1,11 +1,15 @@
 var SC = SC || {};
 
+SC.canvas = function () {
+  return $('#foreground-canvas');
+};
+
 SC.context = function () {
   if (SC._context) {
     return SC._context;
   }
 
-  var canvas = $("#foreground-canvas");
+  var canvas = SC.canvas();
   canvas[0].width = canvas.css('width').replace(/px$/, '');
   canvas[0].height = canvas.css('height').replace(/px$/, '');
   SC._context = canvas[0].getContext("2d");
@@ -13,9 +17,32 @@ SC.context = function () {
   return SC._context;
 };
 
+SC.clearScreen = function (context) {
+  var width = SC.canvas().attr('width');
+  var height = SC.canvas().attr('width');
+  var gradient = context.createLinearGradient(0, 0, width, height);
+
+  gradient.addColorStop(0, '#8ED6FF');   
+  gradient.addColorStop(1, '#004CB3');
+  context.fillStyle = gradient;
+
+  context.fillRect(0, 0, width, height);
+};
+
 SC.draw = function (context, elapsed) {
+  SC.clearScreen(context);
+
+  var square = new core.WorldObject();
+  movable.makeItMovable(square);
+
   context.fillStyle = 'red';
-  context.fillRect(0, 0, 20, 20);
+
+  context.fillRect(
+    square.characteristics.movable.position.x,
+    square.characteristics.movable.position.y,
+    50,
+    50
+  );
 };
 
 SC.update = function (elapsed) {
@@ -42,10 +69,11 @@ function animate() {
     SC.lastUpdate = new Date();
   } else {
     var currentUpdate = new Date();						
-    SC.update(currentUpdate - SC.lastUpdate);
+    var elapsed = currentUpdate - SC.lastUpdate;
+    SC.update(elapsed);
     SC.lastUpdate = currentUpdate;
+    SC.draw(SC.context(), elapsed);
   }
-  SC.draw(SC.context());
   SC.requestAnimFrame.call(window, function() { animate(); });
 }
 
