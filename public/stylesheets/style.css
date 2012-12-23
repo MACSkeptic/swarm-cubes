@@ -1,5 +1,7 @@
 body {
-  padding: 50px;
+  padding: 0px;
+  margin: 0px;
+  border: none;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -15,7 +17,6 @@ canvas {
   left: 0,
   border: solid 2px red;
   background: black;
-
 }
 
 #background-canvas {
