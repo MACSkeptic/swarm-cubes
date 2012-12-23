@@ -18,13 +18,25 @@ SC.game.draw = function(context, elapsed) {
   context.fillRect(
     SC.game.playerCube.characteristics.movable.position.x,
     SC.game.playerCube.characteristics.movable.position.y,
-    30,
-    30
+    SC.game.playerCube.characteristics.cube.width,
+    SC.game.playerCube.characteristics.cube.height
   );
+
+  _.each(SC.game.playerCube.characteristics.cube.shots, function (shot) {
+    context.fillRect(
+      shot.characteristics.movable.position.x,
+      shot.characteristics.movable.position.y,
+      30,
+      30
+    );
+  });
 };
 
 SC.game.update = function(elapsed) {
   SC.game.playerCube.update(elapsed);
+  _.each(SC.game.playerCube.characteristics.cube.shots, function (shot) {
+    shot.update(elapsed);
+  });
 };
 
 SC.game.handleInput = function(elapsed) {

@@ -34,6 +34,8 @@ SC.cube.makeItACube = (function () {
   function createShot(customize) {
     var shot = core.WorldObject();
     movable.makeItMovable(shot);
+    shot.characteristics.movable.position.x = this.characteristics.movable.position.x;
+    shot.characteristics.movable.position.y = this.characteristics.movable.position.y;
     customize.apply(this, [shot]);
     this.characteristics.cube.shots.push(shot);
     return shot;
