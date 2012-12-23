@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<script type="text/javascript" src="lib/underscore.js"> </script>
+  		<script type="text/javascript" src="lib/sylvester.src.js"> </script>
+		<script type="text/javascript" src="src/core.js"> </script>
+		<script type="text/javascript" src="src/positional.js"> </script>
+	</head>
+	<body style="margin: 0px;">
+		<canvas id="canvas"></canvas>
+
+		<script>			
+		var positionals = [];
+		var canvasWidth = window.innerWidth;
+		var canvasHeight = window.innerHeight;
+		var canvas = document.getElementById("canvas");
+
+		canvas.addEventListener('click', function(e) {
+			_.each(positionals, function(o){
+				o.characteristics.movable.toDirection(e.layerX,e.layerY)
+			});			
+		}, false);
+
+		for (var i=0;i<500;i++){
+			var o=newRandomPositional();
+			positionals.push(o);
+		}
+
+		function newRandomPositional(){
+			var o = new core.WorldObject();
+			movable.makeItMovable(o);
+			o.color='#'+(0x1000000+(Math.random())*0xffffff).toString(16).substr(1,6);			
+			o.characteristics.movable.position.x=(Math.random()*10000)%canvasWidth;
+			o.characteristics.movable.position.y=(Math.random()*10000)%canvasHeight;
+			o.characteristics.movable.speed.x=((Math.random())*20)-10;
+			o.characteristics.movable.speed.y=((Math.random())*20)-10;
+			return o;
+		}
+
+		function updateWorld(elapsedTime){
+			_.each(positionals, function(o){
+				o.update(elapsedTime*10);
+			});
+		}
+
+		function render(){
+			var c=document.getElementById("canvas");
+			c.width=canvasWidth;
+			c.height=canvasHeight;
+			var ctx=c.getContext("2d");
+			ctx.lineWidth = 1;
+			ctx.fillStyle="#000000";
+//			ctx.fillRect(0,0,canvasWidth,canvasHeight);
+		// add linear gradient
+		      var grd = ctx.createLinearGradient(0, 0, canvasWidth, canvasHeight);
+		      // light blue
+		      grd.addColorStop(0, '#8ED6FF');   
+		      // dark blue
+		      grd.addColorStop(1, '#004CB3');
+		      ctx.fillStyle = grd;
+		      ctx.fillRect(0,0,canvasWidth,canvasHeight);
+			_.each(positionals, function(o){			
+				ctx.beginPath();
+				ctx.strokeStyle = o.color;
+				ctx.fillStyle= o.color;				
+				ctx.moveTo(o.characteristics.movable.position.x,o.characteristics.movable.position.y);
+				ctx.lineTo(o.characteristics.movable.position.x+o.characteristics.movable.speed.x*5,
+                           o.characteristics.movable.position.y+o.characteristics.movable.speed.y*5);
+                ctx.stroke();
+				ctx.fillRect(o.characteristics.movable.position.x-5,o.characteristics.movable.position.y-5,10,10);
+			});
+		}
+		
+		window.requestAnimFrame = (function(callback) {
+		        return window.requestAnimationFrame || 
+		        window.webkitRequestAnimationFrame || 
+		        window.mozRequestAnimationFrame || 
+		        window.oRequestAnimationFrame || 
+		        window.msRequestAnimationFrame ||
+		        function(callback) {
+		          window.setTimeout(callback, 1000 / 60);
+		        };
+		      })();
+
+			  var lastUpdate=0;
+			
+		      function animate() {
+		        var canvas = document.getElementById("canvas");
+		        var context = canvas.getContext("2d");
+		        // update stage
+					if(lastUpdate==0){
+						lastUpdate=new Date();
+					}else{
+						var thisUpdate = new Date();						
+						updateWorld( thisUpdate - lastUpdate);
+						lastUpdate = thisUpdate;
+					}
+		        // clear stage
+		        //context.clearRect(0, 0, canvas.width, canvas.height);
+		        // render stage
+				render();
+		        // request new frame
+		        requestAnimFrame(function() {
+		          animate();
+		        });
+		      }
+
+		      window.onload = function() {
+		        animate();
+		      };
+		
+		</script>
+	</body>
+</html>
