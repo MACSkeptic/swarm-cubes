@@ -73,7 +73,7 @@ function animate() {
     gradient.addColorStop(1, '#004CB3');
     context.fillStyle = gradient;
 
-    context.fillRect(0, 0, width, height);
+    //context.fillRect(0, 0, width, height);
   } else {
     var currentUpdate = new Date();						
     var elapsed = currentUpdate - SC.lastUpdate;
