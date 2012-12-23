@@ -47,6 +47,8 @@ movable.makeItMovable = function (worldObject){
   movable.move = function (o, elapsedTime){
     var newPosition = calculateNewPosition(o, elapsedTime);
 
+    console.log(newPosition.x);
+
     if (o.characteristics.movable.boundaryCheck &&
       SC.world.isPositionOutside(newPosition.x, newPosition.y)) return;
 

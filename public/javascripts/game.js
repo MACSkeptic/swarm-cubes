@@ -11,7 +11,7 @@ SC.game.init = function () {
 };
 
 SC.game.draw = function(context, elapsed) {
-  context.strokeStyle = 'red';
+  //context.strokeStyle = 'red';
 
   _.each(SC.world.objects, function (worldObject) {
     worldObject.draw(context, elapsed);
