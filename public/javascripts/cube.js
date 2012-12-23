@@ -90,6 +90,7 @@ SC.cube.makeItACube = (function () {
 
   return function (worldObject) {
     movable.makeItMovable(worldObject);
+    worldObject.characteristics.movable.boundaryCheck = true;
     worldObject.addCharacteristicProperties('cube', SC.cube.original);
     worldObject.rightPressed = rightPressed;
     worldObject.leftPressed = leftPressed;

@@ -6,10 +6,15 @@ SC.world.height = 600;
 SC.world.objects = [];
 
 SC.world.isOutside = function (worldObject) {
-  return worldObject.characteristics.movable.position.x > SC.world.width ||
-    worldObject.characteristics.movable.position.x < 0 ||
-    worldObject.characteristics.movable.position.y > SC.world.height ||
-    worldObject.characteristics.movable.position.y < 0;
+  return SC.world.isPositionOutside(
+    worldObject.characteristics.movable.position.x,
+    worldObject.characteristics.movable.position.y
+  );
+};
+
+SC.world.isPositionOutside = function (x, y) {
+  return x > SC.world.width || x < 0 ||
+    y > SC.world.height || y < 0;
 };
 
 SC.world.isInside = function (worldObject) {
