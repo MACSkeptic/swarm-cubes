@@ -8,8 +8,11 @@ SC.context = function () {
   }
 
   var canvas = SC.canvas();
-  canvas[0].width = canvas.css('width').replace(/px$/, '');
-  canvas[0].height = canvas.css('height').replace(/px$/, '');
+  canvas[0].width = window.innerWidth;
+  canvas[0].height = window.innerHeight;
+  SC.world.width = window.innerWidth;
+  SC.world.height = window.innerHeight;
+
   SC._context = canvas[0].getContext('2d');
 
   return SC._context;
@@ -62,8 +65,8 @@ function animate() {
     SC.lastUpdate = new Date();
     var canvas = $('#background-canvas');
     var context = canvas[0].getContext('2d');
-    canvas[0].width = canvas.css('width').replace(/px$/, '');
-    canvas[0].height = canvas.css('height').replace(/px$/, '');
+    canvas[0].width = window.innerWidth;
+    canvas[0].height = window.innerHeight;
     var width = canvas.attr('width');
     var height = canvas.attr('width');
     var gradient = context.createLinearGradient(0, 0, width, height);
