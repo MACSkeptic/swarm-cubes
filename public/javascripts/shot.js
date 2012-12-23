@@ -27,3 +27,4 @@ SC.shot.original = {
   };
 }());
 
+SC.shot.applyTo = SC.shot.makeItAShot;

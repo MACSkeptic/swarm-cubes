@@ -120,3 +120,5 @@ SC.cube.makeItACube = (function () {
     worldObject.draw = draw;
   };
 }());
+
+SC.cube.applyTo = SC.cube.makeItACube;

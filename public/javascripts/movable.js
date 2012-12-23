@@ -59,3 +59,6 @@ movable.makeItMovable = function (worldObject){
     o.characteristics.movable.position.y = newPosition.y;
   };
 }());
+
+var SC = SC || {};
+SC.movable = movable;

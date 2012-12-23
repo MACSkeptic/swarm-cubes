@@ -9,6 +9,8 @@ SC.game.init = function () {
 
   SC.world.objects.push(SC.game.playerCube);
   SC.audio.background();
+
+  SC.game.socket = io.connect('http://192.168.1.2:3000');
 };
 
 SC.game.draw = function(context, elapsed) {
@@ -21,6 +23,7 @@ SC.game.draw = function(context, elapsed) {
 };
 
 SC.game.update = function(elapsed) {
+  SC.game.socket.emit('update', JSON.stringify(SC.world.objects));
   _.each(SC.world.objects, function (worldObject) {
     worldObject.update(elapsed);
   });
