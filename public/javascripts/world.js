@@ -12,9 +12,9 @@ SC.world.isOutside = function (worldObject) {
   );
 };
 
-SC.world.isPositionOutside = function (x, y) {
-  return x > SC.world.width || x < 0 ||
-    y > SC.world.height || y < 0;
+SC.world.isPositionOutside = function (x, y, w, h) {
+  return x + (w || 0) > SC.world.width || x < 0 ||
+    y + (h || 0) > SC.world.height || y < 0;
 };
 
 SC.world.isInside = function (worldObject) {

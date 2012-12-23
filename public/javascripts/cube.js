@@ -92,6 +92,9 @@ SC.cube.makeItACube = (function () {
     movable.makeItMovable(worldObject);
     worldObject.characteristics.movable.boundaryCheck = true;
     worldObject.addCharacteristicProperties('cube', SC.cube.original);
+
+    worldObject.characteristics.movable.width = worldObject.characteristics.cube.width;
+    worldObject.characteristics.movable.height = worldObject.characteristics.cube.height;
     worldObject.rightPressed = rightPressed;
     worldObject.leftPressed = leftPressed;
     worldObject.upPressed = upPressed;
