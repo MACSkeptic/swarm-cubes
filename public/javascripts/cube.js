@@ -38,6 +38,16 @@ SC.cube.makeItACube = (function () {
     shot.characteristics.movable.position.y = this.characteristics.movable.position.y;
     customize.apply(this, [shot]);
     this.characteristics.cube.shots.push(shot);
+    SC.world.objects.push(shot);
+
+    shot.draw = function (context) {
+      context.strokeRect(
+        this.characteristics.movable.position.x,
+        this.characteristics.movable.position.y,
+        30,
+        30);
+    };
+
     return shot;
   }
 
@@ -69,6 +79,15 @@ SC.cube.makeItACube = (function () {
     }]);
   }
 
+  function draw(context) {
+    context.strokeRect(
+      this.characteristics.movable.position.x,
+      this.characteristics.movable.position.y,
+      this.characteristics.cube.width,
+      this.characteristics.cube.height
+    );
+  }
+
   return function (worldObject) {
     movable.makeItMovable(worldObject);
     worldObject.addCharacteristicProperties('cube', SC.cube.original);
@@ -80,5 +99,6 @@ SC.cube.makeItACube = (function () {
     worldObject.shootRight = shootRight;
     worldObject.shootUp = shootUp;
     worldObject.shootDown = shootDown;
+    worldObject.draw = draw;
   };
 }());

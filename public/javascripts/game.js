@@ -3,40 +3,26 @@ var SC = SC || {};
 SC.game = SC.game || {};
 
 SC.game.init = function () {
-  SC.game.entities = [];
-
   SC.game.playerCube = new core.WorldObject();
 
   SC.cube.makeItACube(SC.game.playerCube);
 
-  SC.game.entities.push(SC.game.playerCube);
+  SC.world.objects.push(SC.game.playerCube);
 };
 
 SC.game.draw = function(context, elapsed) {
-  context.fillStyle = 'red';
+  context.strokeStyle = 'red';
 
-  context.fillRect(
-    SC.game.playerCube.characteristics.movable.position.x,
-    SC.game.playerCube.characteristics.movable.position.y,
-    SC.game.playerCube.characteristics.cube.width,
-    SC.game.playerCube.characteristics.cube.height
-  );
-
-  _.each(SC.game.playerCube.characteristics.cube.shots, function (shot) {
-    context.fillRect(
-      shot.characteristics.movable.position.x,
-      shot.characteristics.movable.position.y,
-      30,
-      30
-    );
+  _.each(SC.world.objects, function (worldObject) {
+    worldObject.draw(context, elapsed);
   });
 };
 
 SC.game.update = function(elapsed) {
-  SC.game.playerCube.update(elapsed);
-  _.each(SC.game.playerCube.characteristics.cube.shots, function (shot) {
-    shot.update(elapsed);
+  _.each(SC.world.objects, function (worldObject) {
+    worldObject.update(elapsed);
   });
+  SC.world.clearObjects();
 };
 
 SC.game.handleInput = function(elapsed) {

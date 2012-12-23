@@ -5,7 +5,7 @@ describe('game', function () {
 
 
   it('has a movable cube', function () {
-    var cube = _.find(SC.game.entities, function (entity) {
+    var cube = _.find(SC.world.objects, function (entity) {
       return entity;
     });
 
