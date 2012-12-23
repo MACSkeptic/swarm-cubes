@@ -44,11 +44,8 @@ SC.cube.makeItACube = (function () {
 
     customize.apply(this, [shot]);
 
-    shot.characteristics.movable.speed.x +=
-      this.characteristics.movable.speed.x;
-
-    shot.characteristics.movable.speed.y +=
-      this.characteristics.movable.speed.y;
+    shot.characteristics.movable.speed.x += this.characteristics.movable.speed.x;
+    shot.characteristics.movable.speed.y += this.characteristics.movable.speed.y;
 
     SC.world.objects.push(shot);
 
