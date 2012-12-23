@@ -8,6 +8,7 @@ SC.game.init = function () {
   SC.cube.makeItACube(SC.game.playerCube);
 
   SC.world.objects.push(SC.game.playerCube);
+  SC.audio.background();
 };
 
 SC.game.draw = function(context, elapsed) {

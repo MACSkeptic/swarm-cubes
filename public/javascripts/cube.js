@@ -49,6 +49,7 @@ SC.cube.makeItACube = (function () {
   }
 
   function shootLeft() {
+    SC.audio.spacegun();
     return createShot.apply(this, [function (shot) { 
       shot.characteristics.movable.speed.x = -this.characteristics.cube.defaultShotSpeed;
       shot.characteristics.movable.speed.y = 0;
@@ -56,6 +57,7 @@ SC.cube.makeItACube = (function () {
   }
 
   function shootRight() {
+    SC.audio.spacegun();
     return createShot.apply(this, [function (shot) { 
       shot.characteristics.movable.speed.x = this.characteristics.cube.defaultShotSpeed;
       shot.characteristics.movable.speed.y = 0;
@@ -63,6 +65,7 @@ SC.cube.makeItACube = (function () {
   }
 
   function shootUp() {
+    SC.audio.spacegun();
     return createShot.apply(this, [function (shot) { 
       shot.characteristics.movable.speed.x = 0; 
       shot.characteristics.movable.speed.y = -this.characteristics.cube.defaultShotSpeed;
@@ -70,6 +73,7 @@ SC.cube.makeItACube = (function () {
   }
 
   function shootDown() {
+    SC.audio.spacegun();
     return createShot.apply(this, [function (shot) { 
       shot.characteristics.movable.speed.x = 0; 
       shot.characteristics.movable.speed.y = this.characteristics.cube.defaultShotSpeed;
