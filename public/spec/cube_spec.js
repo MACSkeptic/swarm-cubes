@@ -7,10 +7,10 @@ describe('cube', function () {
   });
 
   it('has default speed and default dimension', function () {
-    expect(cube.characteristics.cube.defaultSpeed).toBe(100);
-    expect(cube.characteristics.cube.defaultShotSpeed).toBe(200);
-    expect(cube.characteristics.cube.width).toBe(50);
-    expect(cube.characteristics.cube.height).toBe(50);
+    expect(cube.characteristics.cube.defaultSpeed).toBeTruthy();
+    expect(cube.characteristics.cube.defaultShotSpeed).toBeTruthy();
+    expect(cube.characteristics.cube.width).toBeTruthy();
+    expect(cube.characteristics.cube.height).toBeTruthy();
   });
 
   it('changes its direction when direction key is pressed', function () {
