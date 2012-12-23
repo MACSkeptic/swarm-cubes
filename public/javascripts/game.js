@@ -2,20 +2,23 @@ var SC = SC || {};
 
 SC.context = function () {
   if (SC._context) {
-    return SC._canvas.getContext("2d");
+    return SC._context;
   }
 
-  SC._context =  $("foreground-canvas")[0].getContext("2d");
+  var canvas = $("#foreground-canvas");
+  canvas[0].width = canvas.css('width').replace(/px$/, '');
+  canvas[0].height = canvas.css('height').replace(/px$/, '');
+  SC._context = canvas[0].getContext("2d");
 
   return SC._context;
 };
 
-SC.draw = function () {
+SC.draw = function (context, elapsed) {
+  context.fillStyle = 'red';
+  context.fillRect(0, 0, 20, 20);
 };
 
 SC.update = function (elapsed) {
-  console.log('update');
-  console.log(elapsed);
 };
 
 SC.handleInput = function () {
@@ -42,7 +45,7 @@ function animate() {
     SC.update(currentUpdate - SC.lastUpdate);
     SC.lastUpdate = currentUpdate;
   }
-  SC.draw();
+  SC.draw(SC.context());
   SC.requestAnimFrame.call(window, function() { animate(); });
 }
 
