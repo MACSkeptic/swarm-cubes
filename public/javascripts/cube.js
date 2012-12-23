@@ -33,20 +33,17 @@ SC.cube.makeItACube = (function () {
 
   function createShot(customize) {
     var shot = core.WorldObject();
-    movable.makeItMovable(shot);
-    shot.characteristics.movable.position.x = this.characteristics.movable.position.x;
-    shot.characteristics.movable.position.y = this.characteristics.movable.position.y;
-    customize.apply(this, [shot]);
-    this.characteristics.cube.shots.push(shot);
-    SC.world.objects.push(shot);
+    SC.shot.makeItAShot(shot);
 
-    shot.draw = function (context) {
-      context.strokeRect(
-        this.characteristics.movable.position.x,
-        this.characteristics.movable.position.y,
-        30,
-        30);
-    };
+    shot.characteristics.movable.position.x = 
+      this.characteristics.movable.position.x + 
+        (this.characteristics.movable.width - shot.characteristics.movable.width)/2;
+    shot.characteristics.movable.position.y = 
+      this.characteristics.movable.position.y + 
+        (this.characteristics.movable.height - shot.characteristics.movable.height)/2;
+
+    customize.apply(this, [shot]);
+    SC.world.objects.push(shot);
 
     return shot;
   }
@@ -83,8 +80,8 @@ SC.cube.makeItACube = (function () {
     context.strokeRect(
       this.characteristics.movable.position.x,
       this.characteristics.movable.position.y,
-      this.characteristics.cube.width,
-      this.characteristics.cube.height
+      this.characteristics.movable.width,
+      this.characteristics.movable.height
     );
   }
 

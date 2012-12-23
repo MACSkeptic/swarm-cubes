@@ -46,6 +46,12 @@ describe('cube', function () {
       var shot = cube.shootLeft();
       expect(shot.characteristics.movable.speed.x).toBe(-shotSpeed);
       expect(shot.characteristics.movable.speed.y).toBe(0);
+      expect(shot.characteristics.movable.position.x).toBe(
+        10 + (cube.characteristics.movable.width - shot.characteristics.movable.width)/2
+      );
+      expect(shot.characteristics.movable.position.y).toBe(
+        20 + (cube.characteristics.movable.width - shot.characteristics.movable.height)/2
+      );
 
       shot = cube.shootRight();
       expect(shot.characteristics.movable.speed.x).toBe(shotSpeed);
@@ -58,12 +64,6 @@ describe('cube', function () {
       shot = cube.shootUp();
       expect(shot.characteristics.movable.speed.x).toBe(0);
       expect(shot.characteristics.movable.speed.y).toBe(-shotSpeed);
-    
-      _.each(cube.characteristics.cube.shots, function(shot) {
-        expect(shot.characteristics.movable.position.x).toBe(cube.characteristics.movable.position.x);
-        expect(shot.characteristics.movable.position.y).toBe(cube.characteristics.movable.position.y);
-      });
-      expect(cube.characteristics.cube.shots.length).toBe(4);
     });
   });
 });
