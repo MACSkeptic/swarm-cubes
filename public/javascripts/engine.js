@@ -33,13 +33,15 @@ SC.draw = function (context, elapsed) {
   SC.game.draw(context, elapsed);
 };
 
-SC.update = function (elapsed) {
-  SC.game.update(elapsed);
-};
-
 SC.handleInput = function () {
   SC.game.handleInput();
 };
+
+SC.update = function (elapsed) {
+  SC.handleInput();
+  SC.game.update(elapsed);
+};
+
 
 SC.requestAnimFrame = (function(callback) {
   return window.requestAnimationFrame || 
@@ -56,6 +58,7 @@ SC.lastUpdate = 0;
 
 function animate() {
   if(SC.lastUpdate == 0) {
+    SC.game.init();
     SC.lastUpdate = new Date();
   } else {
     var currentUpdate = new Date();						
