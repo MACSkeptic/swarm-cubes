@@ -10,7 +10,7 @@ SC.context = function () {
   var canvas = SC.canvas();
   canvas[0].width = canvas.css('width').replace(/px$/, '');
   canvas[0].height = canvas.css('height').replace(/px$/, '');
-  SC._context = canvas[0].getContext("2d");
+  SC._context = canvas[0].getContext('2d');
 
   return SC._context;
 };
