@@ -16,10 +16,12 @@ canvas {
   top: 0;
   left: 0,
   border: solid 2px red;
-  background: black;
 }
 
 #background-canvas {
-  display: none;
-  background: pink;
+  z-index: 1;
+}
+
+#foreground-canvas {
+  z-index: 2;
 }

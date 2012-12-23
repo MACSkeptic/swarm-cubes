@@ -18,13 +18,7 @@ SC.context = function () {
 SC.clearScreen = function (context) {
   var width = SC.canvas().attr('width');
   var height = SC.canvas().attr('width');
-  var gradient = context.createLinearGradient(0, 0, width, height);
-
-  gradient.addColorStop(0, '#8ED6FF');   
-  gradient.addColorStop(1, '#004CB3');
-  context.fillStyle = gradient;
-
-  context.fillRect(0, 0, width, height);
+  context.clearRect(0, 0, width, height);
 };
 
 SC.draw = function (context, elapsed) {
@@ -60,6 +54,19 @@ function animate() {
   if(SC.lastUpdate == 0) {
     SC.game.init();
     SC.lastUpdate = new Date();
+    var canvas = $('#background-canvas');
+    var context = canvas[0].getContext('2d');
+    canvas[0].width = canvas.css('width').replace(/px$/, '');
+    canvas[0].height = canvas.css('height').replace(/px$/, '');
+    var width = canvas.attr('width');
+    var height = canvas.attr('width');
+    var gradient = context.createLinearGradient(0, 0, width, height);
+
+    gradient.addColorStop(0, '#8ED6FF');   
+    gradient.addColorStop(1, '#004CB3');
+    context.fillStyle = gradient;
+
+    context.fillRect(0, 0, width, height);
   } else {
     var currentUpdate = new Date();						
     var elapsed = currentUpdate - SC.lastUpdate;
