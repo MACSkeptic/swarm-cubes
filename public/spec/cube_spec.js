@@ -8,6 +8,7 @@ describe('cube', function () {
 
   it('has default speed and default dimension', function () {
     expect(cube.characteristics.cube.defaultSpeed).toBe(100);
+    expect(cube.characteristics.cube.defaultShotSpeed).toBe(200);
     expect(cube.characteristics.cube.width).toBe(50);
     expect(cube.characteristics.cube.height).toBe(50);
   });
@@ -34,5 +35,27 @@ describe('cube', function () {
 
     expect(cube.characteristics.movable.speed.x).toBe(0);
     expect(cube.characteristics.movable.speed.y).toBe(speed);
+  });
+
+  describe('shoot in each direction', function () {
+    it('shoots', function () {
+      var shotSpeed = cube.characteristics.cube.defaultShotSpeed;
+
+      var shot = cube.shootLeft();
+      expect(shot.characteristics.movable.speed.x).toBe(-shotSpeed);
+      expect(shot.characteristics.movable.speed.y).toBe(0);
+
+      shot = cube.shootRight();
+      expect(shot.characteristics.movable.speed.x).toBe(shotSpeed);
+      expect(shot.characteristics.movable.speed.y).toBe(0);
+
+      shot = cube.shootDown();
+      expect(shot.characteristics.movable.speed.x).toBe(0);
+      expect(shot.characteristics.movable.speed.y).toBe(shotSpeed);
+
+      shot = cube.shootUp();
+      expect(shot.characteristics.movable.speed.x).toBe(0);
+      expect(shot.characteristics.movable.speed.y).toBe(-shotSpeed);
+    });
   });
 });
