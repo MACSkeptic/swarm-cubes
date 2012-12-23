@@ -4,6 +4,7 @@ SC.cube = SC.cube || {};
 SC.cube.original = {
   defaultSpeed: 100,
   defaultShotSpeed: 200,
+  shots: [],
   width: 50,
   height: 50
 };
@@ -34,6 +35,7 @@ SC.cube.makeItACube = (function () {
     var shot = core.WorldObject();
     movable.makeItMovable(shot);
     customize.apply(this, [shot]);
+    this.characteristics.cube.shots.push(shot);
     return shot;
   }
 

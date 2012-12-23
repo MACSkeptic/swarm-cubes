@@ -56,6 +56,8 @@ describe('cube', function () {
       shot = cube.shootUp();
       expect(shot.characteristics.movable.speed.x).toBe(0);
       expect(shot.characteristics.movable.speed.y).toBe(-shotSpeed);
+    
+      expect(cube.characteristics.cube.shots.length).toBe(4);
     });
   });
 });
