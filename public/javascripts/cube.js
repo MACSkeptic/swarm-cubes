@@ -1,7 +1,11 @@
 var SC = SC || {};
 SC.cube = SC.cube || {};
 
-SC.cube.original = { defaultSpeed: 100 };
+SC.cube.original = {
+  defaultSpeed: 100,
+  width: 50,
+  height: 50
+};
 
 SC.cube.makeItACube = (function () {
   

@@ -6,6 +6,12 @@ describe('cube', function () {
     SC.cube.makeItACube(cube);
   });
 
+  it('has default speed and default dimension', function () {
+    expect(cube.characteristics.cube.defaultSpeed).toBe(100);
+    expect(cube.characteristics.cube.width).toBe(50);
+    expect(cube.characteristics.cube.height).toBe(50);
+  });
+
   it('changes its direction when direction key is pressed', function () {
     var speed = cube.characteristics.cube.defaultSpeed;
 
