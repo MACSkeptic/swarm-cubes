@@ -75,8 +75,10 @@ function animate() {
     var gradient = context.createLinearGradient(0, 0, width, height);
     SC.handleInput();
 
-    gradient.addColorStop(0, '#8ED6FF');   
-    gradient.addColorStop(1, '#004CB3');
+    gradient.addColorStop(0, '#000');   
+    gradient.addColorStop(1, '#222');   
+    //gradient.addColorStop(1, '#004CB3');
+    //gradient.addColorStop(1, '#004CB3');
     context.fillStyle = gradient;
 
     context.fillRect(0, 0, width, height);

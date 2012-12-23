@@ -83,6 +83,15 @@ SC.cube.makeItACube = (function () {
       this.characteristics.movable.width,
       this.characteristics.movable.height
     );
+
+    context.fillRect(
+      this.characteristics.movable.position.x + 
+        (this.characteristics.movable.width - SC.shot.original.width)/2,
+      this.characteristics.movable.position.y +
+        (this.characteristics.movable.height - SC.shot.original.height)/2,
+      SC.shot.original.width,
+      SC.shot.original.height
+    );
   }
 
   return function (worldObject) {
