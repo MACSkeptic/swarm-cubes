@@ -45,7 +45,7 @@ SC.game.update = function(elapsed) {
     _.each(SC.world.enemyShots,function (enemyShot) {
       if(collision.areColliding(enemyShot,worldObject)){
         worldObject.characteristics.movable.position.x=-100;
-        if(!_.contains(enemyShot.flavour,"cube")){
+        if(!_.contains(enemyShot.flavours,"cube")){
           enemyShot.characteristics.movable.position.x=-100;
         }
       }
