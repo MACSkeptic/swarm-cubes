@@ -7,11 +7,8 @@ SC.game.init = function () {
 
   SC.cube.makeItACube(SC.game.playerCube);
 
-  SC.game.enemyCube = new core.WorldObject();
-  SC.cube.makeItACube(SC.game.enemyCube);
 
   SC.world.objects.push(SC.game.playerCube);
-  SC.world.objects.push(SC.game.enemyCube);
   SC.world.enemyShots = [];
   SC.audio.background();
 
@@ -47,6 +44,12 @@ SC.game.update = function(elapsed) {
   _.each(SC.world.objects, function (worldObject) {
     worldObject.update(elapsed);
   });
+  _.each(SC.world.enemyShots,function (enemyShot) {
+    if(collision.areColliding(enemyShot,SC.game.playerCube)){
+      SC.game.playerCube.characteristics.movable.position.x=-100;
+    }
+  });
+
   SC.world.clearObjects();
 };
 
