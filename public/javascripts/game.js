@@ -17,8 +17,8 @@ SC.game.init = function () {
     SC.world.enemyShots = [];
     var enemyObjects = JSON.parse(data);
     _.each(enemyObjects, function (enemyData) {
-        var enemy = SC.objectFactory(enemyData);
-        SC.world.enemyShots.push(enemy);
+      var enemy = SC.objectFactory(enemyData);
+      SC.world.enemyShots.push(enemy);
     });
   });
 };
@@ -42,12 +42,13 @@ SC.game.draw = function(context, elapsed) {
 SC.game.update = function(elapsed) {
   SC.game.socket.emit('update', JSON.stringify(SC.world.objects));
   _.each(SC.world.objects, function (worldObject) {
+    _.each(SC.world.enemyShots,function (enemyShot) {
+      if(collision.areColliding(enemyShot,worldObject)){
+        worldObject.characteristics.movable.position.x=-100;
+        enemyShot.characteristics.movable.position.x=-100;
+      }
+    });
     worldObject.update(elapsed);
-  });
-  _.each(SC.world.enemyShots,function (enemyShot) {
-    if(collision.areColliding(enemyShot,SC.game.playerCube)){
-      SC.game.playerCube.characteristics.movable.position.x=-100;
-    }
   });
 
   SC.world.clearObjects();
