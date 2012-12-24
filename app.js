@@ -45,7 +45,8 @@ var connections=[];
 io.sockets.on('connection', function (mySocket) {
   connections.push(mySocket);
   mySocket.on('update', function (data) {
-    connections.forEach(function (socket,index) {
+    var index = connections.indexOf(mySocket);
+    connections.forEach(function (socket) {
       if(socket !== mySocket){
         socket.emit('broadcast', index+"#"+data);
       }
