@@ -4,10 +4,10 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , path = require('path');
+, routes = require('./routes')
+, user = require('./routes/user')
+, http = require('http')
+, path = require('path');
 
 var app = express();
 
@@ -37,9 +37,18 @@ server.listen(app.get('port'), function(){
 });
 
 var io = require('socket.io').listen(server);
+var connections=[];
 
-io.sockets.on('connection', function (socket) {
+
+io.sockets.on('connection', function (mySocket) {
+  connections.push(socket);
+
   socket.on('update', function (data) {
+    _.each(connections, function (socket) {
+      if(socket !== mySocket){
+        socket.emit('broadcast', data);
+      }
+    });
     console.log(data);
   });
 });
