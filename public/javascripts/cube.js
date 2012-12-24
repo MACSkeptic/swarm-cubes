@@ -6,6 +6,7 @@ SC.cube.original = {
   defaultShotSpeed: 1000,
   shots: [],
   width: 50,
+  name: 'cube',
   height: 50
 };
 
@@ -90,6 +91,12 @@ SC.cube.makeItACube = (function () {
       this.characteristics.movable.position.y,
       this.characteristics.movable.width,
       this.characteristics.movable.height
+    );
+    
+    context.fillText(
+      this.characteristics.cube.name,
+      this.characteristics.movable.position.x,
+      this.characteristics.movable.position.y + this.characteristics.movable.height + 10
     );
 
     context.fillRect(
