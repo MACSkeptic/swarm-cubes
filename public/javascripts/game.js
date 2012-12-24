@@ -14,12 +14,15 @@ SC.game.init = function () {
 
   SC.game.socket = io.connect($url);
   SC.game.socket.on('broadcast', function (data) {
-    SC.world.enemyShots = [];
-    var enemyObjects = JSON.parse(data);
+    var parts = data.split('#');
+    var currentShots = [];
+
+    var enemyObjects = JSON.parse(parts[1]);
     _.each(enemyObjects, function (enemyData) {
       var enemy = SC.objectFactory(enemyData);
-      SC.world.enemyShots.push(enemy);
+      currentShots.push(enemy);
     });
+    SC.world.enemyShots[+parts[0]] = currentShots;
   });
 };
 
@@ -34,21 +37,25 @@ SC.game.draw = function(context, elapsed) {
   context.strokeStyle = 'red';
   context.fillStyle = 'pink';
 
-  _.each(SC.world.enemyShots, function (worldObject) {
-    worldObject.draw(context, elapsed);
+  _.each(SC.world.enemyShots, function (shots) {
+    _.each(shots, function (worldObject) {
+      worldObject.draw(context, elapsed);
+    });
   });
 };
 
 SC.game.update = function(elapsed) {
   SC.game.socket.emit('update', JSON.stringify(SC.world.objects));
   _.each(SC.world.objects, function (worldObject) {
-    _.each(SC.world.enemyShots,function (enemyShot) {
-      if(collision.areColliding(enemyShot,worldObject)){
-        worldObject.characteristics.movable.position.x=-100;
-        if(!_.contains(enemyShot.flavours,"cube")){
-          enemyShot.characteristics.movable.position.x=-100;
+    _.each(SC.world.enemyShots,function (shots) {
+      _.each(shots,function (enemyShot) {
+        if(collision.areColliding(enemyShot,worldObject)){
+          worldObject.characteristics.movable.position.x=-100;
+          if(!_.contains(enemyShot.flavours,"cube")){
+            enemyShot.characteristics.movable.position.x=-100;
+          }
         }
-      }
+      });
     });
     worldObject.update(elapsed);
   });
@@ -89,42 +96,4 @@ SC.game.handleInput = function(elapsed) {
     'prevent_repeat'    : false,
     'is_exclusive'      : true
   });
-
-  /*
-  keypress.register_combo({
-    'keys'              : 'left',
-    'on_keydown'        : SC.game.playerCube.shootLeft,
-    'this'              : SC.game.playerCube,
-    'prevent_default'   : true,
-    'prevent_repeat'    : false,
-    'is_exclusive'      : true
-  });
-
-  keypress.register_combo({
-    'keys'              : 'right',
-    'on_keydown'        : SC.game.playerCube.shootRight,
-    'this'              : SC.game.playerCube,
-    'prevent_default'   : true,
-    'prevent_repeat'    : false,
-    'is_exclusive'      : true
-  });
-
-  keypress.register_combo({
-    'keys'              : 'up',
-    'on_keydown'        : SC.game.playerCube.shootUp,
-    'this'              : SC.game.playerCube,
-    'prevent_default'   : true,
-    'prevent_repeat'    : false,
-    'is_exclusive'      : true
-  });
-
-  keypress.register_combo({
-    'keys'              : 'down',
-    'on_keydown'        : SC.game.playerCube.shootDown,
-    'this'              : SC.game.playerCube,
-    'prevent_default'   : true,
-    'prevent_repeat'    : false,
-    'is_exclusive'      : true
-  });
-  */
 };
