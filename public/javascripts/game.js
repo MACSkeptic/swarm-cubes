@@ -90,6 +90,7 @@ SC.game.handleInput = function(elapsed) {
     'is_exclusive'      : true
   });
 
+  /*
   keypress.register_combo({
     'keys'              : 'left',
     'on_keydown'        : SC.game.playerCube.shootLeft,
@@ -125,4 +126,5 @@ SC.game.handleInput = function(elapsed) {
     'prevent_repeat'    : false,
     'is_exclusive'      : true
   });
+  */
 };

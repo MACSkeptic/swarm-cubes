@@ -11,7 +11,6 @@ SC.cube.original = {
 };
 
 SC.cube.makeItACube = (function () {
-
   function rightPressed() {
     this.characteristics.movable.speed.x = this.characteristics.cube.defaultSpeed;
     this.characteristics.movable.speed.y = 0;
@@ -85,6 +84,8 @@ SC.cube.makeItACube = (function () {
     }]);
   }
 
+  var countSinceLastShot = 0;
+
   function draw(context) {
     context.strokeRect(
       this.characteristics.movable.position.x,
@@ -98,15 +99,53 @@ SC.cube.makeItACube = (function () {
       this.characteristics.movable.position.x,
       this.characteristics.movable.position.y + this.characteristics.movable.height + 10
     );
+    console.log(countSinceLastShot);
 
-    context.fillRect(
-      this.characteristics.movable.position.x + 
-        (this.characteristics.movable.width - SC.shot.original.width)/2,
-      this.characteristics.movable.position.y +
-        (this.characteristics.movable.height - SC.shot.original.height)/2,
-      SC.shot.original.width,
-      SC.shot.original.height
-    );
+    if (countSinceLastShot >= 300) {
+      context.fillRect(
+        this.characteristics.movable.position.x + 
+          (this.characteristics.movable.width - SC.shot.original.width)/2,
+        this.characteristics.movable.position.y +
+          (this.characteristics.movable.height - SC.shot.original.height)/2,
+        SC.shot.original.width,
+        SC.shot.original.height
+      );
+    } else {
+      context.strokeRect(
+        this.characteristics.movable.position.x + 
+          (this.characteristics.movable.width - SC.shot.original.width)/2,
+        this.characteristics.movable.position.y +
+          (this.characteristics.movable.height - SC.shot.original.height)/2,
+        SC.shot.original.width,
+        SC.shot.original.height
+      );
+    }
+  }
+
+
+  function handleInput(obj, elapsed) {
+    var activeKeys = KeyboardJS.activeKeys().join(',');
+    
+    if (countSinceLastShot < 1000) { countSinceLastShot += elapsed; }
+    if (countSinceLastShot < 300) return;
+
+
+    if((/left/).test(activeKeys)) {
+      countSinceLastShot = 0;
+      this.shootLeft();
+    } 
+    if((/right/).test(activeKeys)) {
+      countSinceLastShot = 0;
+      this.shootRight();
+    }
+    if((/up/).test(activeKeys)) {
+      countSinceLastShot = 0;
+      this.shootUp();
+    }
+    if((/down/).test(activeKeys)) {
+      countSinceLastShot = 0;
+      this.shootDown();
+    }
   }
 
   return function (worldObject) {
@@ -125,6 +164,7 @@ SC.cube.makeItACube = (function () {
     worldObject.shootUp = shootUp;
     worldObject.shootDown = shootDown;
     worldObject.draw = draw;
+    worldObject.actions.push(_.bind(handleInput, worldObject));
   };
 }());
 
