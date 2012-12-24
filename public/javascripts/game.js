@@ -15,8 +15,9 @@ SC.game.init = function () {
   SC.world.enemyShots = [];
   SC.audio.background();
 
-  SC.game.socket = io.connect('http://localhost:3000');
+  SC.game.socket = io.connect('http://192.168.1.2:3000');
   SC.game.socket.on('broadcast', function (data) {
+    SC.world.enemyShots = [];
     var enemyObjects = JSON.parse(data);
     _.each(enemyObjects, function (enemyData) {
         var enemy = SC.objectFactory(enemyData);
@@ -36,7 +37,7 @@ SC.game.draw = function(context, elapsed) {
   context.strokeStyle = 'red';
   context.fillStyle = 'pink';
 
-  _.each(SC.world.enemyObjects, function (worldObject) {
+  _.each(SC.world.enemyShots, function (worldObject) {
     worldObject.draw(context, elapsed);
   });
 };
@@ -45,11 +46,6 @@ SC.game.update = function(elapsed) {
   SC.game.socket.emit('update', JSON.stringify(SC.world.objects));
   _.each(SC.world.objects, function (worldObject) {
     worldObject.update(elapsed);
-  });
-  _.each(SC.world.enemyShots,function (enemyShot) {
-    if(collision.areColliding(enemyShot,SC.game.playerCube)){
-      SC.game.playerCube.characteristics.movable.position.x=-100;
-    }
   });
   SC.world.clearObjects();
 };
