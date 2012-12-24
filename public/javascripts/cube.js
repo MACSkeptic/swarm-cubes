@@ -99,7 +99,6 @@ SC.cube.makeItACube = (function () {
       this.characteristics.movable.position.x,
       this.characteristics.movable.position.y + this.characteristics.movable.height + 10
     );
-    console.log(countSinceLastShot);
 
     if (countSinceLastShot >= 300) {
       context.fillRect(
