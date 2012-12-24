@@ -1,19 +1,5 @@
-var SC = SC || {};
-
-SC.objectFactory = function (json) {
-  var parsed = JSON.parse(json);
-  var target = SC.core.WorldObject();
-
-    debugger;
-  _.each(parsed.flavours, function (flavour) {
-    SC[flavour].applyTo(target);
-  });
-
-  return target;
-};
-
-describe('flavours', function () {
-  it('works like magic', function () {
+describe('object factory', function () {
+  it('re-constructs the object', function () {
     var cube = new SC.core.WorldObject();
     SC.cube.makeItACube(cube);
 

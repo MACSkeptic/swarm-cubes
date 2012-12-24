@@ -62,3 +62,5 @@ movable.makeItMovable = function (worldObject){
 
 var SC = SC || {};
 SC.movable = movable;
+
+SC.movable.applyTo = SC.movable.makeItMovable;

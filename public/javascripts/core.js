@@ -39,7 +39,7 @@ core.WorldObject = function(){
   }
 
   self.prototype.addCharacteristicProperties = function(characteristic, properties){
-    this.flavours.push[characteristic];
+    this.flavours.push(characteristic);
 
     if(!this.hasCharacteristic(characteristic) ){
       this.characteristics[characteristic]=core.newObject(properties);
