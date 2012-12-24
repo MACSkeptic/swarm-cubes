@@ -6,7 +6,7 @@ SC.game.init = function () {
   SC.game.playerCube = new core.WorldObject();
 
   SC.cube.makeItACube(SC.game.playerCube);
-
+  SC.game.playerCube.characteristics.cube.name = SC.game.playerName;
 
   SC.world.objects.push(SC.game.playerCube);
   SC.world.enemyShots = [];
