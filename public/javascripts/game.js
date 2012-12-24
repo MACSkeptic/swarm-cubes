@@ -15,7 +15,7 @@ SC.game.init = function () {
   SC.world.enemyShots = [];
   SC.audio.background();
 
-  SC.game.socket = io.connect('http://localhost:3000');
+  SC.game.socket = io.connect($url);
   SC.game.socket.on('broadcast', function (data) {
     SC.world.enemyShots = [];
     var enemyObjects = JSON.parse(data);
