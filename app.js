@@ -39,6 +39,10 @@ server.listen(app.get('port'), function(){
 var io = require('socket.io').listen(server);
 var connections=[];
 
+io.configure(function () { 
+  io.set("transports", ["xhr-polling"]); 
+  io.set("polling duration", 10); 
+});
 
 io.sockets.on('connection', function (mySocket) {
   connections.push(mySocket);
