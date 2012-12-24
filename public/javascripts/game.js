@@ -12,10 +12,17 @@ SC.game.init = function () {
 
   SC.world.objects.push(SC.game.playerCube);
   SC.world.objects.push(SC.game.enemyCube);
-  SC.world.enemyShots=[];
+  SC.world.enemyShots = [];
   SC.audio.background();
 
-  SC.game.socket = io.connect('http://192.168.1.2:3000');
+  SC.game.socket = io.connect('http://localhost:3000');
+  SC.game.socket.on('broadcast', function (data) {
+    var enemyObjects = JSON.parse(data);
+    _.each(enemyObjects, function (enemyData) {
+        var enemy = SC.objectFactory(enemyData);
+        SC.world.enemyShots.push(enemy);
+    });
+  });
 };
 
 SC.game.draw = function(context, elapsed) {
@@ -23,6 +30,13 @@ SC.game.draw = function(context, elapsed) {
   context.fillStyle = 'orange';
 
   _.each(SC.world.objects, function (worldObject) {
+    worldObject.draw(context, elapsed);
+  });
+
+  context.strokeStyle = 'red';
+  context.fillStyle = 'pink';
+
+  _.each(SC.world.enemyObjects, function (worldObject) {
     worldObject.draw(context, elapsed);
   });
 };
@@ -35,8 +49,8 @@ SC.game.update = function(elapsed) {
   _.each(SC.world.enemyShots,function (enemyShot) {
     if(collision.areColliding(enemyShot,SC.game.playerCube)){
       SC.game.playerCube.characteristics.movable.position.x=-100;
-    });
-  }
+    }
+  });
   SC.world.clearObjects();
 };
 

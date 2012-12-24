@@ -41,10 +41,10 @@ var connections=[];
 
 
 io.sockets.on('connection', function (mySocket) {
-  connections.push(socket);
+  connections.push(mySocket);
 
-  socket.on('update', function (data) {
-    _.each(connections, function (socket) {
+  mySocket.on('update', function (data) {
+    connections.forEach(function (socket) {
       if(socket !== mySocket){
         socket.emit('broadcast', data);
       }
