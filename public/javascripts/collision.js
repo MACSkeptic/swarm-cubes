@@ -4,7 +4,7 @@ collision.areColliding = function (movable1, movable2) {
   var x1 = movable1.characteristics.movable.position.x;
   var x2 = movable2.characteristics.movable.position.x;
 
-  var x2 = movable1.characteristics.movable.position.y;
+  var y1 = movable1.characteristics.movable.position.y;
   var y2 = movable2.characteristics.movable.position.y;
 
   var size1 = movable1.characteristics.movable.width/2;
