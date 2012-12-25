@@ -24,7 +24,8 @@ SC.renderer2d.context = function () {
   return SC._context;
 };
 
-SC.renderer2d.draw = function (elapsed) {
+SC.renderer2d.draw = function () {
+  debugger
   var context = SC.renderer2d.context();
   SC.renderer2d.clearScreen(context);
 
@@ -35,7 +36,7 @@ SC.renderer2d.draw = function (elapsed) {
   secretCanvas.attr('height', SC.renderer2d.canvas().attr('height'));
   secretCanvas.attr('id', 'foreground-canvas');
 
-  SC.game.draw(secretContext, elapsed);
+  SC.game.draw(secretContext);
 
   //SC.renderer2d.canvas().replaceWith(secretCanvas);
   context.drawImage(secretCanvas[0], 0, 0);

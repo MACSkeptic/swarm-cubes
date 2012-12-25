@@ -26,12 +26,12 @@ SC.game.init = function () {
   });
 };
 
-SC.game.draw = function(context, elapsed) {
+SC.game.draw = function(context) {
   context.strokeStyle = 'yellow';
   context.fillStyle = 'orange';
 
   _.each(SC.world.objects, function (worldObject) {
-    worldObject.draw(context, elapsed);
+    worldObject.draw(context);
   });
 
   context.strokeStyle = 'red';
@@ -39,7 +39,7 @@ SC.game.draw = function(context, elapsed) {
 
   _.each(SC.world.enemyShots, function (shots) {
     _.each(shots, function (worldObject) {
-      worldObject.draw(context, elapsed);
+      worldObject.draw(context);
     });
   });
 };
@@ -63,7 +63,7 @@ SC.game.update = function(elapsed) {
   SC.world.clearObjects();
 };
 
-SC.game.handleInput = function(elapsed) {
+SC.game.handleInput = function() {
   keypress.register_combo({
     'keys'              : 'a',
     'on_keydown'        : SC.game.playerCube.leftPressed,
