@@ -25,7 +25,6 @@ SC.renderer2d.context = function () {
 };
 
 SC.renderer2d.draw = function () {
-  debugger
   var context = SC.renderer2d.context();
   SC.renderer2d.clearScreen(context);
 

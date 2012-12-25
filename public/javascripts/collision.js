@@ -1,6 +1,9 @@
 var collision = collision || {};
 
 collision.areColliding = function (movable1, movable2) {
+  if(movable1===movable2){
+    return false;	
+  }
   var x1 = movable1.characteristics.movable.position.x;
   var x2 = movable2.characteristics.movable.position.x;
 

@@ -7,6 +7,8 @@ SC.game.init = function () {
 
   SC.cube.makeItACube(SC.game.playerCube);
   SC.game.playerCube.characteristics.cube.name = SC.game.playerName;
+  SC.game.playerCube.characteristics.movable.position.x=100;
+  SC.game.playerCube.characteristics.movable.position.y=100;
 
   SC.world.objects.push(SC.game.playerCube);
   SC.world.enemyShots = [];
@@ -29,7 +31,7 @@ SC.game.init = function () {
 SC.game.draw = function(context) {
   context.strokeStyle = 'yellow';
   context.fillStyle = 'orange';
-
+debugger
   _.each(SC.world.objects, function (worldObject) {
     worldObject.draw(context);
   });
