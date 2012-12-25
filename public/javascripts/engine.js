@@ -4,33 +4,38 @@ SC.handleInput = function () {
   SC.game.handleInput();
 };
 
-SC.update = function (elapsed) {
+SC.lastUpdate = 0;
+
+SC.update = function () {
   SC.handleInput();
+  if(SC.lastUpdate==0){
+	SC.lastUpdate = new Date();
+  }
+  var nextUpdate = new Date(); 
+  var elapsed = nextUpdate - SC.lastUpdate;
   SC.game.update(elapsed);
+  SC.lastUpdate = nextUpdate;
+  console.log("updated, elapsed time: "+elapsed);
 };
 
 SC.draw = function () {  
   var renderer = SC.renderer2d;
-  renderer.requestAnimFrame.apply(window, [function() { renderer.draw(); }]);
+  return renderer.requestAnimFrame.apply(window, [function() { renderer.draw(); }]);
 }
 
-SC.lastUpdate = 0;
-
-SC.firstRun = true;
-
 SC.run = function() {
-  var loops = 0, skipTicks = 1000 / 50,
+  var loops = 0, skipTicks = 1000 / 60,
       maxFrameSkip = 10,
-      nextGameTick = (new Date).getTime();
+      nextGameTick = new Date().getTime();
   
   return function () {
     loops = 0;
-      while ((new Date).getTime() > nextGameTick && loops < maxFrameSkip) {
-	    SC.update();
-	    nextGameTick += skipTicks;
-	    loops++;
-	  }
-	  SC.draw();
+    while (new Date().getTime() > nextGameTick && loops < maxFrameSkip) {
+      SC.update();
+      nextGameTick += skipTicks;
+      loops++;
+	}      
+      if(loops) SC.draw();
 	};
   };
 

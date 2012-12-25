@@ -93,7 +93,7 @@ SC.cube.makeItACube = (function () {
       this.characteristics.movable.width,
       this.characteristics.movable.height
     );
-    
+
     context.fillText(
       this.characteristics.cube.name,
       this.characteristics.movable.position.x,
